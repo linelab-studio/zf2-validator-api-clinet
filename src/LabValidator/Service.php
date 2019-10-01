@@ -23,7 +23,7 @@ class Service
         if($config) {
             try {
                 $this->setConfig($config);
-            } catch (ConfigException $e) {
+            } catch (\LabValidator\Exception\ConfigException $e) {
             }
         }
     }
@@ -43,10 +43,10 @@ class Service
     protected function isValidConfig()
     {
         if (empty(self::$configArray['apiKey'])) {
-            throw new ConfigException('apiKey');
+            throw new \LabValidator\Exception\ConfigException('apiKey');
         }
         if (empty(self::$configArray['host'])) {
-            throw new ConfigException('host');
+            throw new \LabValidator\Exception\ConfigException('host');
         }
     }
 
