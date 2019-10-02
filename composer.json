@@ -22,8 +22,8 @@
         "linelab-studio/validator-api-client" : "~1.0.2"
     },
     "autoload": {
-        "psr-4" : {
-            "LabValidator" : "src/"
+        "psr-0" : {
+            "LabValidator\\" : "src/"
         }
     },
     "require-dev": {
