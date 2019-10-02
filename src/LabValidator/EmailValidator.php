@@ -29,10 +29,10 @@ class EmailValidator  extends AbstractValidator
     ];
 
 
-    public function __construct()
+    public function __construct(array $config = null)
     {
         if(empty($this->serviceValidators)){
-            $this->serviceValidators = new Service(['apiKey'=> 'kuiba']);
+            $this->serviceValidators = new Service($config);
         }
         parent::__construct(null);
     }
@@ -102,10 +102,6 @@ class EmailValidator  extends AbstractValidator
         }
         return $this->formatValidator;
     }
-
-
-
-
 
     public function isValidByLabValidator($value)
     {

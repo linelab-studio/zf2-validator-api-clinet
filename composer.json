@@ -23,7 +23,8 @@
     },
     "autoload": {
         "psr-0" : {
-            "LabValidator" : "src/"
+            "LabValidator" : "src/",
+            "LabValidator/Exception" : "src/LabValidator"
         }
     },
     "require-dev": {

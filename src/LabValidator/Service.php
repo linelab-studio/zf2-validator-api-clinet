@@ -17,13 +17,15 @@ class Service
     /**
      * Service constructor.
      * @param array|null $config
+     *
      */
     public function __construct(array $config = null)
     {
         if($config) {
             try {
                 $this->setConfig($config);
-            } catch (\LabValidator\Exception\ConfigException $e) {
+            } catch (ConfigException $e) {
+                echo 'Error: '.$e->getMessage();
             }
         }
     }
@@ -32,10 +34,10 @@ class Service
     public function setConfig($config) {
 
         if(!empty($config['LabValidator']['apiKey'])){
-            self::$configArray['apiKey'] = $config['labValidator']['apiKey'];
+            self::$configArray['apiKey'] = $config['LabValidator']['apiKey'];
         }
         if(!empty($config['LabValidator']['host'])){
-            self::$configArray['apiKey'] = $config['labValidator']['host'];
+            self::$configArray['host'] = $config['LabValidator']['host'];
         }
         $this->isValidConfig();
     }
@@ -43,10 +45,10 @@ class Service
     protected function isValidConfig()
     {
         if (empty(self::$configArray['apiKey'])) {
-            throw new \LabValidator\Exception\ConfigException('apiKey');
+            throw new ConfigException('apiKey');
         }
         if (empty(self::$configArray['host'])) {
-            throw new \LabValidator\Exception\ConfigException('host');
+            throw new ConfigException('host');
         }
     }
 
@@ -101,5 +103,6 @@ class Service
         $config = \Service\Configuration::getDefaultConfiguration()->setApiKey('apiKey', self::$configArray['apiKey'])->setHost(self::$configArray['host']);
         return $config;
     }
+
 
 }

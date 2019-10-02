@@ -26,10 +26,10 @@ class PhoneValidator  extends AbstractValidator
     ];
 
 
-    public function __construct()
+    public function __construct(array $config = null)
     {
         if(empty($this->serviceValidators)){
-            $this->serviceValidators = new Service();
+            $this->serviceValidators = new Service($config);
         }
         parent::__construct(null);
     }
