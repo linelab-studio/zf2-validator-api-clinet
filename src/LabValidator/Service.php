@@ -8,49 +8,11 @@
 
 namespace LabValidator;
 
-use LabValidator\Exception\ConfigException;
+
+use TestValid\Exeptation\ConfigException;
 
 class Service
 {
-
-
-    /**
-     * Service constructor.
-     * @param array|null $config
-     *
-     */
-    public function __construct(array $config = null)
-    {
-        if($config) {
-            try {
-                $this->setConfig($config);
-            } catch (ConfigException $e) {
-                echo 'Error: '.$e->getMessage();
-            }
-        }
-    }
-
-
-    public function setConfig($config) {
-
-        if(!empty($config['LabValidator']['apiKey'])){
-            self::$configArray['apiKey'] = $config['LabValidator']['apiKey'];
-        }
-        if(!empty($config['LabValidator']['host'])){
-            self::$configArray['host'] = $config['LabValidator']['host'];
-        }
-        $this->isValidConfig();
-    }
-
-    protected function isValidConfig()
-    {
-        if (empty(self::$configArray['apiKey'])) {
-            throw new ConfigException('apiKey');
-        }
-        if (empty(self::$configArray['host'])) {
-            throw new ConfigException('host');
-        }
-    }
 
 
     /**
@@ -61,6 +23,41 @@ class Service
         'apiKey' => null,
         'host' => null
     ];
+
+    public function __construct(array $config = null)
+    {
+        if(!empty($config['LabValidator']) && is_array($config['LabValidator'])) {
+            try{
+                $this->setConfig($config['LabValidator']);
+            }catch (ConfigException $exception){
+                echo 'Error: '. $exception->getMessage();
+            }
+        }
+    }
+
+
+    public function setConfig($config)
+    {
+        if(!empty($config['apiKey'])){
+            self::$configArray['apiKey'] = $config['apiKey'];
+        }
+        if(!empty($config['host'])){
+            self::$configArray['host'] = $config['host'];
+        }
+        $this->isValidConfig();
+
+    }
+
+    public function isValidConfig()
+    {
+        if(empty(self::$configArray['apiKey'])){
+            throw new ConfigException('Incorrect configuration apiKey');
+        }
+        if(empty(self::$configArray['host'])){
+            throw new ConfigException('Incorrect configuration host');
+        }
+
+    }
 
 
     /**
