@@ -69,7 +69,6 @@ class PhoneValidator  extends AbstractValidator
             try {
                 $service = $this->getLabValidatorApi();
                 $response = $service->getClientPhoneValidator()->checkPhoneValueGet($value);
-                var_dump($response->getCode());
                 return $response->getIsValid();
 
             }catch (\Exception $exception){
