@@ -1,7 +1,7 @@
 {
     "name": "linelab-studio/zf2-validator-api-client",
     "description": "ZF2 Validator",
-    "version": "1.0.9",
+    "version": "1.1.0",
     "type": "library",
     "license": "MIT",
     "keywords": [
