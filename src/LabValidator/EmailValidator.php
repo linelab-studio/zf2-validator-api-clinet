@@ -108,7 +108,7 @@ class EmailValidator  extends AbstractValidator
         if($value){
             try {
                 $service = $this->getLabValidatorApi();
-                $response = $service->getClientEmailValidator()->checkEmailValueGet($value);
+                $response = $service->getClientEmailValidator()->checkEmailGet($value);
                 return $response->getIsValid();
 
             }catch (\Exception $exception){
