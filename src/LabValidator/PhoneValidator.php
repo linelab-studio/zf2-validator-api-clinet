@@ -20,8 +20,10 @@ class PhoneValidator  extends AbstractValidator
     protected $formatValidator;
 
     const PHONE_NOT_EXISTS = 'notExist';
+    const INVALID_FORMAT = 'invalidFormat';
 
     protected $messageTemplates = [
+        self::INVALID_FORMAT => "Correct the phone number.",
         self::PHONE_NOT_EXISTS => "Phone number '%value%' does not exist.",
     ];
 
@@ -39,6 +41,11 @@ class PhoneValidator  extends AbstractValidator
         // TODO: Implement isValid() method.
         $this->setValue((string)$value);
 
+        if($this->validFormat($value) === false) {
+            $this->error(self::INVALID_FORMAT);
+            return false;
+        }
+
         $isValidByLabValidator = $this->isValidByLabValidator($value);
         if($isValidByLabValidator !== true && $isValidByLabValidator !== null){
             $this->error(self::PHONE_NOT_EXISTS);
@@ -47,6 +54,14 @@ class PhoneValidator  extends AbstractValidator
 
         return true;
 
+    }
+
+    public function validFormat($value)
+    {
+        if (preg_match("/^(\+[0-9]{2})?[0-9]{9,}$/", str_replace([' ', '-'], ['',''], $value))) {
+            return true;
+        }
+        return false;
     }
 
 
